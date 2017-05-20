@@ -28,7 +28,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activities.NotesActivity" />
         <activity android:name=".activities.NoteActivity"/>
-        <activity android:name=".activities.TripActivity" />
+        <activity android:name=".fragments.TripsFragment" />
     </application>
 
 </manifest>

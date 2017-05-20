@@ -20,8 +20,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import utn_frba_mobile.dadm_diario_viajes.models.User;
 import utn_frba_mobile.dadm_diario_viajes.R;
+import utn_frba_mobile.dadm_diario_viajes.fragments.TripsFragment;
+import utn_frba_mobile.dadm_diario_viajes.models.User;
 
 /**
  * Created by toiacabrera on 5/7/17.
@@ -55,6 +56,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu();
+
+        // Leave fragments code at the end
+        // If we're being restored from a previous state,
+        // then we don't need to do anything and should return or else
+        // we could end up with overlapping fragments.
+        if (savedInstanceState != null) {
+            return;
+        }
+
+        // Create a new Fragment to be placed in the activity layout
+        TripsFragment firstFragment = new TripsFragment();
+
+        // In case this activity was started with special instructions from an
+        // Intent, pass the Intent's extras to the fragment as arguments
+        firstFragment.setArguments(getIntent().getExtras());
+
+        // Add the fragment to the 'fragment_container' FrameLayout
+        getFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, firstFragment).commit();
     }
 
     @Override
@@ -102,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(this, NotesActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_trips) {
-            Intent intent = new Intent(this, TripActivity.class);
+            Intent intent = new Intent(this, TripsFragment.class);
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
             onLogout();
