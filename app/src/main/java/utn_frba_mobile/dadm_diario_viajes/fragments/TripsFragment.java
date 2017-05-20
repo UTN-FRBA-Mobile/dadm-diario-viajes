@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 import utn_frba_mobile.dadm_diario_viajes.R;
+import utn_frba_mobile.dadm_diario_viajes.activities.MainActivity;
 import utn_frba_mobile.dadm_diario_viajes.adapters.TripsAdapter;
 import utn_frba_mobile.dadm_diario_viajes.models.Trip;
 
@@ -27,8 +28,6 @@ public class TripsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(getActivity());
 
         List<Trip> trips;
         trips = new ArrayList<>();
@@ -38,7 +37,7 @@ public class TripsFragment extends Fragment {
         trips.add(new Trip("España",dateInit,dateEnd, R.drawable.spain));
         trips.add(new Trip("Nueva Zelanda",dateInit,dateEnd,R.drawable.newzealand));
 
-        mAdapter = new TripsAdapter(trips);
+        mAdapter = new TripsAdapter((MainActivity) getActivity(), trips);
 
     }
 
@@ -54,7 +53,9 @@ public class TripsFragment extends Fragment {
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        // use a linear layout manager
+        // TODO should be a way to create layout manager onCreate
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
 
         return view;

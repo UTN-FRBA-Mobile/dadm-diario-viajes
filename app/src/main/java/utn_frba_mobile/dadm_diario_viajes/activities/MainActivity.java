@@ -1,5 +1,6 @@
 package utn_frba_mobile.dadm_diario_viajes.activities;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +22,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import utn_frba_mobile.dadm_diario_viajes.R;
+import utn_frba_mobile.dadm_diario_viajes.fragments.NotesFragment;
 import utn_frba_mobile.dadm_diario_viajes.fragments.TripsFragment;
+import utn_frba_mobile.dadm_diario_viajes.models.Trip;
 import utn_frba_mobile.dadm_diario_viajes.models.User;
 
 /**
@@ -119,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_notes) {
-            Intent intent = new Intent(this, NotesActivity.class);
+            Intent intent = new Intent(this, NotesFragment.class);
             startActivity(intent);
         } else if (id == R.id.nav_trips) {
             Intent intent = new Intent(this, TripsFragment.class);
@@ -156,5 +159,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent in = IdpResponse.getIntent(idpResponse);
         in.setClass(context, MainActivity.class);
         return in;
+    }
+
+    public void loadNotes(Trip trip) {
+        // Create fragment and give it an argument specifying the article it should show
+        NotesFragment fragment = new NotesFragment();
+        //Bundle args = new Bundle();
+        //args.putInt(ArticleFragment.ARG_POSITION, position);
+        //ewFragment.setArguments(args);
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
     }
 }

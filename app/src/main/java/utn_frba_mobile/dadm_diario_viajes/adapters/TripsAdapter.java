@@ -1,5 +1,6 @@
 package utn_frba_mobile.dadm_diario_viajes.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,10 +14,12 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import utn_frba_mobile.dadm_diario_viajes.R;
+import utn_frba_mobile.dadm_diario_viajes.activities.MainActivity;
 import utn_frba_mobile.dadm_diario_viajes.models.Trip;
 
 public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> {
     private List<Trip> mDataset;
+    private MainActivity context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public CardView cv;
@@ -35,7 +38,8 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
         }
     }
 
-    public TripsAdapter(List<Trip> myDataset) {
+    public TripsAdapter(MainActivity context, List<Trip> myDataset) {
+        this.context = context;
         mDataset = myDataset;
     }
 
@@ -50,13 +54,20 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Trip trip = mDataset.get(position);
+        final Trip trip = mDataset.get(position);
         holder.name.setText(trip.getName());
         DateFormat format = new SimpleDateFormat();
         format = SimpleDateFormat.getDateInstance();
         holder.dateInit.setText(format.format(trip.getDateInit()));
         holder.dateEnd.setText(format.format(trip.getDateEnd()));
         holder.photo.setImageResource(trip.getPhoto());
+
+        holder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.loadNotes(trip);
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
