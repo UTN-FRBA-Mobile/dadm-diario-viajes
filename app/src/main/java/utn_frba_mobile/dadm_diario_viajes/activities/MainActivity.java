@@ -22,8 +22,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import utn_frba_mobile.dadm_diario_viajes.R;
+import utn_frba_mobile.dadm_diario_viajes.fragments.NoteFragment;
 import utn_frba_mobile.dadm_diario_viajes.fragments.NotesFragment;
 import utn_frba_mobile.dadm_diario_viajes.fragments.TripsFragment;
+import utn_frba_mobile.dadm_diario_viajes.models.Note;
 import utn_frba_mobile.dadm_diario_viajes.models.Trip;
 import utn_frba_mobile.dadm_diario_viajes.models.User;
 
@@ -38,14 +40,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        /*FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
             startActivity(AuthUiActivity.createIntent(this));
             finish();
             return;
         }
 
-        loggedUser = User.create(currentUser);
+        loggedUser = User.create(currentUser);*/
 
         setContentView(R.layout.activity_main);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -164,6 +166,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void loadNotes(Trip trip) {
         // Create fragment and give it an argument specifying the article it should show
         NotesFragment fragment = new NotesFragment();
+        //Bundle args = new Bundle();
+        //args.putInt(ArticleFragment.ARG_POSITION, position);
+        //ewFragment.setArguments(args);
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
+    }
+
+    public void loadNote(Note note) {
+        // Create fragment and give it an argument specifying the article it should show
+        NoteFragment fragment = new NoteFragment();
         //Bundle args = new Bundle();
         //args.putInt(ArticleFragment.ARG_POSITION, position);
         //ewFragment.setArguments(args);

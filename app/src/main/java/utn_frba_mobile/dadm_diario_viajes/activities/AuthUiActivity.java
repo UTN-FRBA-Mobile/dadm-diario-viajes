@@ -20,11 +20,11 @@ public class AuthUiActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startActivity(MainActivity.createIntent(this, null));
+        finish();
 
-        FirebaseAuth auth = FirebaseAuth.getInstance();
+        /*FirebaseAuth auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
-            startActivity(MainActivity.createIntent(this, null));
-            finish();
         } else {
             startActivityForResult(
                 AuthUI.getInstance()
@@ -36,6 +36,7 @@ public class AuthUiActivity extends AppCompatActivity {
                     .build(),
                     RC_SIGN_IN);
         }
+        */
     }
 
     @Override

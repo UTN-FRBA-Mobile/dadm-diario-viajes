@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import utn_frba_mobile.dadm_diario_viajes.R;
+import utn_frba_mobile.dadm_diario_viajes.activities.MainActivity;
 import utn_frba_mobile.dadm_diario_viajes.adapters.NotesAdapter;
 import utn_frba_mobile.dadm_diario_viajes.models.Note;
 
@@ -44,9 +45,7 @@ public class NotesFragment extends Fragment {
         notes.add(note3);
         notes.add(note4);
 
-        mAdapter = new NotesAdapter(getActivity(), notes);
-
-
+        mAdapter = new NotesAdapter((MainActivity) getActivity(), notes);
     }
 
     @Nullable
@@ -61,7 +60,9 @@ public class NotesFragment extends Fragment {
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        // use a linear layout manager
+        // TODO should be a way to create layout manager onCreate
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {

@@ -38,7 +38,6 @@ public class TripsFragment extends Fragment {
         trips.add(new Trip("Nueva Zelanda",dateInit,dateEnd,R.drawable.newzealand));
 
         mAdapter = new TripsAdapter((MainActivity) getActivity(), trips);
-
     }
 
     @Nullable

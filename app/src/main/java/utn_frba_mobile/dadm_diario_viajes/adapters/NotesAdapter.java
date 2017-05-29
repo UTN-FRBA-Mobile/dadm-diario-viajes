@@ -15,7 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import utn_frba_mobile.dadm_diario_viajes.R;
-import utn_frba_mobile.dadm_diario_viajes.activities.NoteActivity;
+import utn_frba_mobile.dadm_diario_viajes.activities.MainActivity;
+import utn_frba_mobile.dadm_diario_viajes.fragments.NoteFragment;
 import utn_frba_mobile.dadm_diario_viajes.models.Note;
 
 /**
@@ -24,7 +25,7 @@ import utn_frba_mobile.dadm_diario_viajes.models.Note;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
     private List<Note> mDataset;
-    private Context context;
+    private MainActivity context;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -48,7 +49,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public NotesAdapter(Context context, List<Note> myDataset) {
+    public NotesAdapter(MainActivity context, List<Note> myDataset) {
         this.context = context;
         mDataset = myDataset;
     }
@@ -82,9 +83,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, NoteActivity.class);
-                i.putExtra(Intent.EXTRA_TEXT, note.getName());
-                context.startActivity(i);
+                context.loadNote(note);
             }
         });
 
