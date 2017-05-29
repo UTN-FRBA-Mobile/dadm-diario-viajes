@@ -40,14 +40,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
             startActivity(AuthUiActivity.createIntent(this));
             finish();
             return;
         }
 
-        loggedUser = User.create(currentUser);*/
+        loggedUser = User.create(currentUser);
 
         setContentView(R.layout.activity_main);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
